@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CSV Comparison</title>
+</head>
+<body>
+    <h1>CSV Comparison</h1>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form }}
+        <button type="submit">Проверить</button>
+    </form>
+    {% if match_percent %}
+        <h2>Процент совпадения: {{ match_percent }}%</h2>
+    {% endif %}
+</body>
+</html>
