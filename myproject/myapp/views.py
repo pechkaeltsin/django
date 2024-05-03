@@ -3,7 +3,10 @@ from django.http import HttpResponseRedirect
 from .forms import UploadFileForm
 import pandas as pd
 
+
 def home(request):
+    mismatched_rows = []
+
     if request.method == 'POST':
         form = UploadFileForm(request.POST, request.FILES)
         if form.is_valid():
@@ -16,7 +19,15 @@ def home(request):
             total_count = len(input_data)
             match_percent = (match_count / total_count) * 100
 
-            return render(request, 'myapp/home.html', {'form': form, 'match_percent': match_percent})
+            # Поиск несовпадающих строк
+            for index, row in input_data.iterrows():
+                input_val = row[1]
+                ksr_val = ksr_data.iloc[index, 0]
+                if input_val != ksr_val:
+                    mismatched_rows.append({'index': index+1, 'input_val': input_val, 'ksr_val': ksr_val})
+
+            return render(request, 'myapp/home.html', {'form': form, 'match_percent': match_percent,
+                                                       'mismatched_rows': mismatched_rows})
     else:
         form = UploadFileForm()
     return render(request, 'myapp/home.html', {'form': form})
