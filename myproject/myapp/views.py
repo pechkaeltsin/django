@@ -19,7 +19,6 @@ def home(request):
             total_count = len(input_data)
             match_percent = (match_count / total_count) * 100
 
-            # Поиск несовпадающих строк
             for index, row in input_data.iterrows():
                 input_val = row[1]
                 ksr_val = ksr_data.iloc[index, 0]
@@ -30,4 +29,4 @@ def home(request):
                                                        'mismatched_rows': mismatched_rows})
     else:
         form = UploadFileForm()
-    return render(request, 'myapp/home.html', {'form': form})
+        return render(request, 'myapp/home.html', {'form': form})

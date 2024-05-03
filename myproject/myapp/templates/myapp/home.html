@@ -1,9 +1,8 @@
-{% load static %}
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
+    {% load static %}
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <title>CSV Comparison</title>
@@ -29,7 +28,7 @@
                 <div class="col-md-8 col-lg-6 col-xl-5 col-xxl-4">
                     <div class="card mb-5">
                         <div class="card-body p-sm-5">
-                            <h2 class="text-center mb-4">CSV Comparison Result</h2>
+                            <h2 class="text-center mb-4">Comparison Result</h2>
                             <div class="progress">
                                 <div class="progress-bar" role="progressbar" style="width: {{ match_percent }}%;" aria-valuenow="{{ match_percent }}" aria-valuemin="0" aria-valuemax="100">{{ match_percent }}%</div>
                             </div>
@@ -42,15 +41,24 @@
                     <div class="card mb-5">
                         <div class="card-body p-sm-5">
                             <h2 class="text-center mb-4">Mismatched Rows</h2>
-                            <div class="mismatched-rows">
-                                {% for row in mismatched_rows %}
-                                    <div class="row">
-                                        <div class="col-2"><pre>{{ row.index }}</pre></div>
-                                        <div class="col-5"><pre>{{ row.input_val }}</pre></div>
-                                        <div class="col-5"><pre>{{ row.ksr_val }}</pre></div>
-                                    </div>
-                                {% endfor %}
-                            </div>
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Line</th>
+                                        <th scope="col">Input</th>
+                                        <th scope="col">KSR</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for row in mismatched_rows %}
+                                        <tr>
+                                            <td><pre>{{ row.index }}</pre></td>
+                                            <td><pre>{{ row.input_val }}</pre></td>
+                                            <td><pre>{{ row.ksr_val }}</pre></td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
