@@ -29,4 +29,4 @@ def home(request):
                                                        'mismatched_rows': mismatched_rows})
     else:
         form = UploadFileForm()
-        return render(request, 'myapp/home.html', {'form': form})
+    return render(request, 'myapp/home.html', {'form': form})
