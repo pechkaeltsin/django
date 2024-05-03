@@ -1,18 +1,45 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <title>CSV Comparison</title>
+    <link rel="stylesheet" href="{% static 'assets/bootstrap/css/bootstrap.min.css' %}">
 </head>
+
 <body>
-    <h1>CSV Comparison</h1>
-    <form method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ form }}
-        <button type="submit">Проверить</button>
-    </form>
-    {% if match_percent %}
-        <h2>Процент совпадения: {{ match_percent }}%</h2>
-    {% endif %}
+    <section class="py-4 py-xl-5">
+        <div class="container">
+            <div class="row d-flex justify-content-center">
+                <div class="col-md-8 col-lg-6 col-xl-5 col-xxl-4">
+                    <div class="card mb-5">
+                        <div class="card-body p-sm-5">
+                            <h2 class="text-center mb-4">Upload CSV File</h2>
+                            <form method="post" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <div class="mb-3"><input class="form-control" type="file" name="file"></div>
+                                <div><button class="btn btn-primary d-block w-100" type="submit">Send</button></div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-8 col-lg-6 col-xl-5 col-xxl-4">
+                    <div class="card mb-5">
+                        <div class="card-body p-sm-5">
+                            <h2 class="text-center mb-4">CSV Comparison Result</h2>
+                            <div class="progress">
+                                <div class="progress-bar" role="progressbar" style="width: {{ match_percent }}%;" aria-valuenow="{{ match_percent }}" aria-valuemin="0" aria-valuemax="100">{{ match_percent }}%</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script src="{% static 'assets/bootstrap/js/bootstrap.min.js' %}"></script>
 </body>
+
 </html>
